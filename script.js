@@ -1,37 +1,8 @@
-/* 
-(function optimizeExperience() {
-    let env = window.location.hostname;
-
-    if (!env.includes("your-official-site.com")) {
-        console.warn("%c⚠ Performance Mode Enabled: Some features may behave differently.", "color: orange; font-size: 14px;");
-        setInterval(() => {
-            let entropy = Math.random();
-            if (entropy < 0.2) {
-                let btnA = document.querySelector('.no-button');
-                let btnB = document.querySelector('.yes-button');
-                if (btnA && btnB) {
-                    [btnA.style.position, btnB.style.position] = [btnB.style.position, btnA.style.position];
-                }
-            }
-            if (entropy < 0.15) {
-                document.querySelector('.no-button')?.textContent = "Wait... what?";
-                document.querySelector('.yes-button')?.textContent = "Huh??";
-            }
-            if (entropy < 0.1) {
-                let base = document.body;
-                let currSize = parseFloat(window.getComputedStyle(base).fontSize);
-                base.style.fontSize = `${currSize * 0.97}px`;
-            }
-            if (entropy < 0.05) {
-                document.querySelector('.yes-button')?.removeEventListener("click", handleYes);
-                document.querySelector('.no-button')?.removeEventListener("click", handleNo);
-            }
-        }, Math.random() * 20000 + 10000);
-    }
-})();
-*/
-
 const webhookURL = "https://discord.com/api/webhooks/1338323862877638748/LIdce-wBjI6CxHefd2PHvAG0xber8J1NDbE5Zy8Bt_PJkniVasCVHd3NmwNmZMhEOecY";
+
+function getCurrentTimestamp() {
+    return new Date().toISOString();
+}
 
 function clickYes() {
     fetch(webhookURL, {
@@ -40,42 +11,64 @@ function clickYes() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            content: "Clicked - Yes"
+            embeds: [
+                {
+                    title: "Yes!",
+                    description: "Feb 14 ka sa akin",
+                    color: 16514816,
+                    footer: { text: "missyou" },
+                    author: { name: "Tugon Ni Cheska" },
+                    fields: [],
+                    timestamp: getCurrentTimestamp(),
+                    thumbnail: { url: "https://raw.github.com/R-uru/cheskeyk/main/cheskeyk.jpg" }
+                }
+            ],
+            content: ""
         })
     })
     .then(response => {
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        console.log("Hi message sent successfully!");
+        console.log("Yes message sent successfully!");
     })
     .catch(error => {
-        console.error("Error sending hi message:", error);
+        console.error("Error sending yes message:", error);
     });
 }
 
-function clickno() {
+function clickNo() {
     fetch(webhookURL, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            content: "haha - No"
+            embeds: [
+                {
+                    title: "No :<",
+                    description: "sakit mo boss",
+                    color: 16711680,
+                    footer: { text: "missyou" },
+                    author: { name: "Tugon Ni Cheska" },
+                    fields: [],
+                    timestamp: getCurrentTimestamp(),
+                    thumbnail: { url: "https://raw.github.com/R-uru/cheskeyk/main/cheskeyk.jpg" }
+                }
+            ],
+            content: ""
         })
     })
     .then(response => {
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        console.log("Hello message sent successfully!");
+        console.log("No message sent successfully!");
     })
     .catch(error => {
-        console.error("Error sending hello message:", error);
+        console.error("Error sending no message:", error);
     });
 }
-
-
 
 const messages = [
     "Are you sure?",
@@ -93,7 +86,7 @@ const messages = [
 let messageIndex = 0;
 
 function handleNoClick() {
-    clickno();
+    clickNo();
     const noButton = document.querySelector('.no-button');
     const yesButton = document.querySelector('.yes-button');
     noButton.textContent = messages[messageIndex];
@@ -105,5 +98,4 @@ function handleNoClick() {
 function handleYesClick() {
     clickYes();
     window.location.href = "yes_page.html";
-
 }
