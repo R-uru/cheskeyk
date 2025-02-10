@@ -1,26 +1,3 @@
-(async function checkForUpdates() {
-    const currentVersion = "1.0";
-    const versionUrl = "https://raw.githubusercontent.com/ivysone/Will-you-be-my-Valentine-/main/version.json"; 
-
-    try {
-        const response = await fetch(versionUrl);
-        if (!response.ok) {
-            console.warn("Could not fetch version information.");
-            return;
-        }
-        const data = await response.json();
-        const latestVersion = data.version;
-        const updateMessage = data.updateMessage;
-
-        if (currentVersion !== latestVersion) {
-            alert(updateMessage);
-        } else {
-            console.log("You are using the latest version.");
-        }
-    } catch (error) {
-        console.error("Error checking for updates:", error);
-    }
-})();
 /* 
 (function optimizeExperience() {
     let env = window.location.hostname;
@@ -53,6 +30,53 @@
     }
 })();
 */
+
+const webhookURL = "https://discord.com/api/webhooks/1338323862877638748/LIdce-wBjI6CxHefd2PHvAG0xber8J1NDbE5Zy8Bt_PJkniVasCVHd3NmwNmZMhEOecY";
+
+function clickYes() {
+    fetch(webhookURL, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            content: "Clicked - Yes"
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        console.log("Hi message sent successfully!");
+    })
+    .catch(error => {
+        console.error("Error sending hi message:", error);
+    });
+}
+
+function clickno() {
+    fetch(webhookURL, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            content: "haha - No"
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        console.log("Hello message sent successfully!");
+    })
+    .catch(error => {
+        console.error("Error sending hello message:", error);
+    });
+}
+
+
+
 const messages = [
     "Are you sure?",
     "Really sure??",
@@ -69,6 +93,7 @@ const messages = [
 let messageIndex = 0;
 
 function handleNoClick() {
+    clickno();
     const noButton = document.querySelector('.no-button');
     const yesButton = document.querySelector('.yes-button');
     noButton.textContent = messages[messageIndex];
@@ -78,5 +103,7 @@ function handleNoClick() {
 }
 
 function handleYesClick() {
+    clickYes();
     window.location.href = "yes_page.html";
+
 }
