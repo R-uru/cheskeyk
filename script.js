@@ -31,6 +31,7 @@ function clickYes() {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
         console.log("Yes message sent successfully!");
+        window.location.href = "yes_page.html";
     })
     .catch(error => {
         console.error("Error sending yes message:", error);
@@ -97,5 +98,4 @@ function handleNoClick() {
 
 function handleYesClick() {
     clickYes();
-    window.location.href = "yes_page.html";
 }
